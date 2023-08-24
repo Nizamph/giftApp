@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ordersSchema = mongoose.Schema({
+const cartSchema = Schema({
   items: { type: Array, required: true },
   totalQuantity: { type: Number, required: true },
   totalAmount: {
@@ -13,5 +13,5 @@ const ordersSchema = mongoose.Schema({
     required: true,
   },
 });
-const Order = mongoose.model('Order', ordersSchema);
-module.exports = Order;
+const Cart = mongoose.model('Cart', cartSchema);
+module.exports = Cart;

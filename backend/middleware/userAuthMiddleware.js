@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const authMiddleware = asyncHandler(async (req, res, next) => {
+const userAuthMiddleware = asyncHandler(async (req, res, next) => {
   console.log('middleware working');
   let token = req.headers.authorization;
   console.log('token from middleware', token);
@@ -20,4 +20,4 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = authMiddleware;
+module.exports = userAuthMiddleware;
