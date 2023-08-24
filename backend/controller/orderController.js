@@ -37,4 +37,22 @@ const getOrdersToAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { placeOrder, getOrdersToAdmin };
+const updateOrderStatusFromAdmin = asyncHandler(async (req, res) => {
+  try {
+    const { orderId, newOrderStatus } = req.body;
+    const updatedOrder = await Order.findOneAndUpdate(
+      { _id: orderId },
+      { $set: { orderStatus: newOrderStatus } },
+      { new: true }
+    );
+    res.status(201).json({
+      updatedOrder: updatedOrder,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'internal server error',
+    });
+  }
+});
+
+module.exports = { placeOrder, getOrdersToAdmin, updateOrderStatusFromAdmin };
