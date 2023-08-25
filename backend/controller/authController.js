@@ -18,6 +18,7 @@ const register = asyncHandler(async (req, res) => {
     const adminData = await Admin.create({
       name: name,
       email: email,
+      userType: userType,
       password: password,
     });
     if (adminData) {
@@ -25,6 +26,7 @@ const register = asyncHandler(async (req, res) => {
         adminId: adminData._id,
         name: adminData.name,
         email: adminData.email,
+        userType: adminData.userType,
         token: generateToken(adminData._id),
       });
     } else {
@@ -41,6 +43,7 @@ const register = asyncHandler(async (req, res) => {
       name: name,
       email: email,
       password: password,
+      userType: userType,
       pic: pic,
     });
 
@@ -51,6 +54,7 @@ const register = asyncHandler(async (req, res) => {
         userId: usersData._id,
         name: usersData.name,
         email: usersData.email,
+        userType: usersData.userType,
         pic: usersData.pic,
         token: generateToken(usersData._id),
       });
@@ -76,6 +80,7 @@ const auth = asyncHandler(async (req, res) => {
           id: adminExist._id,
           name: adminExist.name,
           email: adminExist.email,
+          userType: adminExist.userType,
           token: generateToken(adminExist._id),
         });
       } else {
@@ -84,11 +89,13 @@ const auth = asyncHandler(async (req, res) => {
       }
     } else if (userType === 'User') {
       const userExist = await User.findOne({ email });
+      console.log('userData after login', userExist);
       if (userExist && (await userExist.matchPassword(password))) {
         res.json({
           id: userExist._id,
           name: userExist.name,
           email: userExist.email,
+          userType: userExist.userType,
           token: generateToken(userExist._id),
         });
       } else {

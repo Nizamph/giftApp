@@ -1,0 +1,42 @@
+.headerContainer {
+  position: fixed;
+  background-color: #172a45;
+  color: #ffffff;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.headerContainer > div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.headerContainer > div > img {
+  width: 31px;
+  height: 31px;
+}
+.headerContainer > div > h3 {
+  font-family: cursive;
+  margin: 5px;
+  z-index: 100;
+}
+.button {
+  padding: 10px 20px;
+  border: 2px solid rgb(14, 14, 30);
+  background-color: white;
+  color: #0e0e1e;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(14, 14, 30);
+  color: white;
+  border-color: white;
+}
