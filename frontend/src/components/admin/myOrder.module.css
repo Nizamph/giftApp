@@ -1,0 +1,79 @@
+.myOrderContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.ordersTable {
+  margin-top: 20px;
+  width: 100%;
+}
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.columnHeader {
+  font-weight: bold;
+  color: white;
+}
+
+.columnData {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.columnData img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+}
+
+.itemImage {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.totalRow {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.totalAmount {
+  font-weight: bold;
+}
+
+.orderStatus {
+  font-style: italic;
+}
+
+.updateButton {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.updateButton:hover {
+  background-color: #0056b3;
+}
+
+.myOrderListContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  margin: 40px;
+}

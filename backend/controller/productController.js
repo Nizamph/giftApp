@@ -15,7 +15,7 @@ const addProducts = asyncHandler(async (req, res) => {
       price: price,
       deliveredIn: deliveredIn,
       inStock: inStock,
-      admin: req.user._id,
+      adminId: req.user._id,
     });
     const getAddedProduct = await addedProduct.save();
     res.status(201).json({
@@ -46,4 +46,22 @@ const getProducts = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addProducts, getProducts };
+const getMyProducts = asyncHandler(async (req, res) => {
+  try {
+    if (!req.user._id) {
+      res.status(400).json({
+        message: 'Authentication failed',
+      });
+    }
+    const products = await Product.find({ adminId: req.user._id });
+    res.status(201).json({
+      products: products,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'internal server error(getting my products)',
+    });
+  }
+});
+
+module.exports = { addProducts, getProducts, getMyProducts };

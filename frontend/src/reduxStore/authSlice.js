@@ -1,18 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+const getUserToken = localStorage.getItem('userToken');
+const getAdminToken = localStorage.getItem('adminToken');
 const authSlice = createSlice({
   name: 'authentication',
-  initialState: { token: '', isToken: false, userName: '', role: '' },
+  initialState: {
+    userToken: getUserToken,
+    isUserToken: false,
+    userName: '',
+    userRole: 'User',
+    adminToken: getAdminToken,
+    isAdminToken: false,
+    adminName: '',
+    adminRole: 'Admin',
+  },
   reducers: {
     setUserDetails: (state, action) => {
       state.token = action.payload.token;
-      state.isToken = !!state.token;
+      state.isUserToken = !!action.payload.token;
       state.userName = action.payload.userName;
-      state.role = action.payload.role;
+      localStorage.setItem('userToken', action.payload.token);
+    },
+    setAdminDetails: (state, action) => {
+      state.adminToken = action.payload.token;
+      state.isAdminToken = !!action.payload.token;
+      state.adminName = action.payload.adminName;
+      localStorage.setItem('adminToken', action.payload.token);
     },
   },
 });
 
-export const { setUserDetails } = authSlice.actions;
+export const { setUserDetails, setAdminDetails } = authSlice.actions;
 
 export default authSlice.reducer;

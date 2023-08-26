@@ -1,12 +1,17 @@
 import React from 'react';
 import './sidebar.css';
-const Sidebar = ({ name }) => {
+import { useNavigate } from 'react-router-dom';
+const Sidebar = ({ name, link }) => {
+  const navigate = useNavigate();
+  console.log('link is here in sidebar', link);
   return (
-    <ul>
-      <li class='has-subnav'>
-        <a href='#'>
-          <i class='fa fa-globe fa-2x'></i>
-          <span class='nav-text'>{name}</span>
+    <ul
+      onClick={() => navigate(`${link}`)}
+      style={{ cursor: 'pointer' }}>
+      <li className='has-subnav'>
+        <a>
+          <i className='fa fa-globe fa-2x'></i>
+          <span className='nav-text'>{name}</span>
         </a>
       </li>
     </ul>

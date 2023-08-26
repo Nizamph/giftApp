@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { REGISTER } from '../../utils/constants';
 import Spinner from '../../UI/Spinner';
 import { useDispatch } from 'react-redux';
-import { setUserDetails } from '../../reduxStore/authSlice';
+import { setAdminDetails, setUserDetails } from '../../reduxStore/authSlice';
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,16 +42,23 @@ const Signup = () => {
       console.log('data from the backend', data);
       if (data.userType === 'User') {
         navigate('/user', { replace: true });
+        dispatch(
+          setUserDetails({
+            token: data.token,
+            userName: data.name,
+            role: data.userType,
+          })
+        );
       } else if (data.userType === 'Admin') {
         navigate('/admin', { replace: true });
+        dispatch(
+          setAdminDetails({
+            token: data.token,
+            adminName: data.name,
+            role: data.userType,
+          })
+        );
       }
-      dispatch(
-        setUserDetails({
-          token: data.token,
-          userName: data.name,
-          role: data.userType,
-        })
-      );
     } catch (err) {
       alert(err);
     }

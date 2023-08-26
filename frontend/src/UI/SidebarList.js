@@ -4,18 +4,19 @@ import Sidebar from './Sidebar';
 const SidebarList = ({ adminSidebarContent }) => {
   return (
     <>
-      <nav class='main-menu'>
+      <nav className='main-menu'>
         {adminSidebarContent?.map((itm, i) => (
           <Sidebar
             key={i}
             name={itm.name}
+            link={itm.link}
           />
         ))}
-        <ul class='logout'>
+        <ul className='logout'>
           <li>
             <a href='#'>
-              <i class='fa fa-power-off fa-2x'></i>
-              <span class='nav-text'>Logout</span>
+              <i className='fa fa-power-off fa-2x'></i>
+              <span className='nav-text'>Logout</span>
             </a>
           </li>
         </ul>

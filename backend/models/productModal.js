@@ -11,7 +11,7 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   deliveredIn: { type: Number, default: 7, required: true },
   inStock: { type: Number, required: true },
-  admin: {
+  adminId: {
     type: Schema.Types.ObjectId,
     ref: 'Admin',
   },

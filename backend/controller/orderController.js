@@ -26,9 +26,9 @@ const placeOrder = asyncHandler(async (req, res) => {
 const getOrdersToAdmin = asyncHandler(async (req, res) => {
   try {
     if (req.user._id) {
-      const allOrders = await Order.find({});
-      console.log('all orders', allOrders);
-      res.status(201).json({ allOrders: allOrders });
+      const orders = await Order.find({ userId: req.user._id });
+      console.log('order to admin', orders);
+      res.status(201).json({ orders: orders });
     }
   } catch (err) {
     res.status(500).json({

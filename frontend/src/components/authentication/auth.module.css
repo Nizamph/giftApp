@@ -15,6 +15,7 @@
 }
 .loginContainer > form > label {
   font-family: cursive;
+  color: black;
 }
 .loginPage {
   width: 100%;
