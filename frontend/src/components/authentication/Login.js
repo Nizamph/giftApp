@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { LOGIN } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserDetails } from '../../reduxStore/authSlice';
+import { setAdminDetails, setUserDetails } from '../../reduxStore/authSlice';
 import Button from '../../UI/Button';
 import Spinner from '../../UI/Spinner';
 const Login = () => {
@@ -39,8 +39,22 @@ const Login = () => {
       console.log('data from the backend in login', data);
       if (data.userType === 'User') {
         navigate('/user', { replace: true });
+        dispatch(
+          setUserDetails({
+            token: data.token,
+            userName: data.name,
+            role: data.userType,
+          })
+        );
       } else if (data.userType === 'Admin') {
         navigate('/admin', { replace: true });
+        dispatch(
+          setAdminDetails({
+            token: data.token,
+            adminName: data.name,
+            role: data.userType,
+          })
+        );
       }
       dispatch(
         setUserDetails({
@@ -50,7 +64,13 @@ const Login = () => {
         })
       );
     } catch (err) {
-      alert(err);
+      console.log('fucking error', err);
+      if (err?.message) {
+        alert(err.message);
+      } else {
+        alert('something went wrong');
+      }
+      setIsLoading(false);
     }
   };
   return (

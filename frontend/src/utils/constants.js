@@ -5,6 +5,13 @@ export const GET_MY_GIFTS =
   'http://localhost:4000/api/products/admin/getMyProducts';
 export const GET_ALL_GIFTS_TO_ADMIN =
   'http://localhost:4000/api/products/admin/getProducts';
+export const GET_ALL_GIFTS_TO_USER =
+  'http://localhost:4000/api/products/user/getProducts';
+export const ADD_ITEMS_TO_CART = 'http://localhost:4000/api/cart/addItems';
+export const GET_ALL_ITEMS_TO_CART =
+  'http://localhost:4000/api/cart/getCartItems';
+export const DELETE_CART = 'http://localhost:4000/api/cart/deleteCart';
+export const UPDATE_CART = 'http://localhost:4000/api/cart/updateCart';
 export const ADMIN_SIDEBAR_CONTENT = [
   {
     name: 'Admin Dashboard',
@@ -25,5 +32,24 @@ export const ADMIN_SIDEBAR_CONTENT = [
   {
     name: 'All gifts',
     link: '/admin/allgifts',
+  },
+];
+
+export const USER_SIDEBAR_CONTENT = [
+  {
+    name: 'User Dashboard',
+    link: '/user',
+  },
+  {
+    name: 'All gifts',
+    link: '/user/giftshop',
+  },
+  {
+    name: 'Cart',
+    link: '/user/cart',
+  },
+  {
+    name: 'My orders',
+    link: '/user/myorders',
   },
 ];

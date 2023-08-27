@@ -1,11 +1,11 @@
 import React from 'react';
 import './sidebar.css';
 import Sidebar from './Sidebar';
-const SidebarList = ({ adminSidebarContent }) => {
+const SidebarList = ({ sidebarContent }) => {
   return (
     <>
       <nav className='main-menu'>
-        {adminSidebarContent?.map((itm, i) => (
+        {sidebarContent?.map((itm, i) => (
           <Sidebar
             key={i}
             name={itm.name}

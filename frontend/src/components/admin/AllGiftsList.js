@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './myGifts.module.css';
 import { GET_ALL_GIFTS_TO_ADMIN } from '../../utils/constants';
 import { useSelector } from 'react-redux';
-import MyGift from './MyGift';
+import MyGift from '../MyGift';
 
 const AllGiftsList = () => {
   const token = useSelector((store) => store.auth.adminToken);
@@ -27,6 +27,8 @@ const AllGiftsList = () => {
       alert('something went wrong');
     }
   };
+
+  console.log('all gifts', allGifts);
   return (
     <div className={styles.productListPage}>
       <div className={styles.productListContainer}>

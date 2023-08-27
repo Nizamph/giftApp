@@ -12,8 +12,8 @@ const register = asyncHandler(async (req, res) => {
   if (userType === 'Admin') {
     const adminExist = await Admin.findOne({ email });
     if (adminExist) {
-      res.status(400);
-      throw new Error('admin is already exist');
+      res.status(400).json({ errorMessage: 'user is already exist' });
+      throw new Error('User is already exist');
     }
     const adminData = await Admin.create({
       name: name,
@@ -36,7 +36,7 @@ const register = asyncHandler(async (req, res) => {
   } else if (userType === 'User') {
     const userExist = await User.findOne({ email });
     if (userExist) {
-      res.status(400);
+      res.status(400).json({ errorMessage: 'user is already exist' });
       throw new Error('User is already exist');
     }
     const usersData = await User.create({
@@ -91,6 +91,7 @@ const auth = asyncHandler(async (req, res) => {
       const userExist = await User.findOne({ email });
       console.log('userData after login', userExist);
       if (userExist && (await userExist.matchPassword(password))) {
+        console.log(' if working');
         res.json({
           id: userExist._id,
           name: userExist.name,

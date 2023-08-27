@@ -7,7 +7,7 @@ const Admin = () => {
   const [adminSidebarContent] = useState(ADMIN_SIDEBAR_CONTENT);
   return (
     <div>
-      <SidebarList adminSidebarContent={adminSidebarContent} />
+      <SidebarList sidebarContent={adminSidebarContent} />
       <Outlet />
     </div>
   );

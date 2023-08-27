@@ -1,7 +1,7 @@
 // MyProductsList.js
 import React, { useEffect, useState } from 'react';
 import styles from './myGifts.module.css';
-import MyGift from './MyGift';
+import MyGift from '../MyGift';
 import { GET_MY_GIFTS } from '../../utils/constants';
 import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
 // const productData = [

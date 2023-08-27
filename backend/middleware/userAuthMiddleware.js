@@ -2,9 +2,8 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const userAuthMiddleware = asyncHandler(async (req, res, next) => {
-  console.log('middleware working');
   let token = req.headers.authorization;
-  console.log('token from middleware', token);
+  console.log('token from authuserMiddleware', token);
   if (token && token.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];

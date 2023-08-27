@@ -40,6 +40,9 @@ const Signup = () => {
       const data = await res.json();
       setIsLoading(false);
       console.log('data from the backend', data);
+      if (data?.errorMessage) {
+        alert(data?.errorMessage);
+      }
       if (data.userType === 'User') {
         navigate('/user', { replace: true });
         dispatch(
@@ -60,7 +63,13 @@ const Signup = () => {
         );
       }
     } catch (err) {
-      alert(err);
+      console.log('error', err);
+      if (err.message) {
+        alert(err.message);
+      } else {
+        alert('something went wrong');
+      }
+      setIsLoading(false);
     }
   };
 

@@ -3,7 +3,6 @@ import './sidebar.css';
 import { useNavigate } from 'react-router-dom';
 const Sidebar = ({ name, link }) => {
   const navigate = useNavigate();
-  console.log('link is here in sidebar', link);
   return (
     <ul
       onClick={() => navigate(`${link}`)}

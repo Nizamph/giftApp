@@ -2,22 +2,23 @@ const asyncHandler = require('express-async-handler');
 const Cart = require('../models/cartModel');
 const addItems = asyncHandler(async (req, res) => {
   try {
-    const { items, totalQuantity, totalAmount } = req.body;
+    const { name, productId, image, quantity, amount } = req.body;
     console.log('request body', req.body);
-    if (!items || !totalQuantity || !totalAmount) {
+    if (!name || !image || !amount || !productId) {
       res.status(400);
       throw new Error('Please add items');
     }
     console.log('user from Cart', req.user);
     const CartData = new Cart({
       userId: req.user._id,
-      items: items,
-      totalQuantity: totalQuantity,
-      totalAmount: totalAmount,
+      name: name,
+      productId: productId,
+      image: image,
+      quantity: quantity,
+      amount: amount,
     });
-
     const savedCart = await CartData.save();
-    // console.log('usersData', usersData);
+    console.log('usersData', savedCart);
     res.status(201).json(savedCart);
   } catch (error) {
     res.status(500).json({ message: 'internal server error' });
@@ -39,6 +40,7 @@ const getAllItems = asyncHandler(async (req, res) => {
 const deleteCartItems = asyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
+    console.log('id from delete', id);
     if (!id) {
       res.status(400).json({ message: 'please provide proper id for delete' });
     }
@@ -51,20 +53,26 @@ const deleteCartItems = asyncHandler(async (req, res) => {
 
 const updateCartItems = asyncHandler(async (req, res) => {
   try {
-    const { id, items, totalQuantity, totalAmount } = req.body;
-    if (!id || !items || !totalQuantity || !totalAmount) {
+    console.log('current user', req.user);
+    const { id, productId, name, image, quantity, amount } = req.body;
+    if (!id || !name || !productId || !image || !quantity || !amount) {
       res.status(400);
       throw new Error('Please provide sufficient data to update');
     }
+    console.log('user from update', req.user);
     const updatedCart = await Cart.findOneAndUpdate(
       { _id: id },
       {
-        items: items,
-        totalQuantity: totalQuantity,
-        totalAmount: totalAmount,
+        name: name,
+        productId: productId,
+        image: image,
+        quantity: quantity,
+        amount: amount,
       },
       { new: true }
     );
+
+    console.log('updatedCartData', updatedCart);
     res.status(201).json({
       updatedCart: updatedCart,
     });

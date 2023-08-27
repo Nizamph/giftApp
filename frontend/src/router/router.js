@@ -3,11 +3,13 @@ import Signup from '../components/authentication/Signup';
 import Login from '../components/authentication/Login';
 import Body from '../components/Body';
 import Admin from '../components/admin/Admin';
-import User from '../components/User';
+import User from '../components/user/User';
 import AddGifts from '../components/admin/AddGifts';
 import MyOrderList from '../components/admin/MyOrderList';
 import MyGiftsList from '../components/admin/MyGiftsList';
 import AllGiftsList from '../components/admin/AllGiftsList';
+import GiftShopList from '../components/user/GiftShopList';
+import CartList from '../components/user/CartList';
 
 const appRouter = createBrowserRouter([
   {
@@ -39,6 +41,16 @@ const appRouter = createBrowserRouter([
       {
         path: '/user',
         element: <User />,
+        children: [
+          {
+            path: 'giftshop',
+            element: <GiftShopList />,
+          },
+          {
+            path: 'cart',
+            element: <CartList />,
+          },
+        ],
       },
     ],
   },
