@@ -1,7 +1,7 @@
 // MyOrderList.js
 import React from 'react';
-import MyOrder from './MyOrders'; // Make sure to adjust the import path
-import styles from './myOrder.module.css';
+import MyOrder from '../MyOrder'; // Make sure to adjust the import path
+import styles from '../../components/myOrder.module.css';
 
 const defaultOrders = [
   {
@@ -65,6 +65,7 @@ const MyOrderList = () => {
         <MyOrder
           key={index}
           order={order}
+          isUpdate={true}
         />
       ))}
     </div>

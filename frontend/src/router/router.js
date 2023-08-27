@@ -10,6 +10,8 @@ import MyGiftsList from '../components/admin/MyGiftsList';
 import AllGiftsList from '../components/admin/AllGiftsList';
 import GiftShopList from '../components/user/GiftShopList';
 import CartList from '../components/user/CartList';
+import MyOrders from '../components/user/MyOrdersList';
+import MyOrdersList from '../components/user/MyOrdersList';
 
 const appRouter = createBrowserRouter([
   {
@@ -49,6 +51,10 @@ const appRouter = createBrowserRouter([
           {
             path: 'cart',
             element: <CartList />,
+          },
+          {
+            path: 'myorders',
+            element: <MyOrdersList />,
           },
         ],
       },

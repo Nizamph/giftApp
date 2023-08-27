@@ -12,6 +12,10 @@ export const GET_ALL_ITEMS_TO_CART =
   'http://localhost:4000/api/cart/getCartItems';
 export const DELETE_CART = 'http://localhost:4000/api/cart/deleteCart';
 export const UPDATE_CART = 'http://localhost:4000/api/cart/updateCart';
+export const PLACE_ORDER = 'http://localhost:4000/api/order/placeOrder';
+export const CLEAR_CART = 'http://localhost:4000/api/cart/clearCart';
+export const GET_ORDER_TO_USER =
+  'http://localhost:4000/api/order/getOrderToUser';
 export const ADMIN_SIDEBAR_CONTENT = [
   {
     name: 'Admin Dashboard',

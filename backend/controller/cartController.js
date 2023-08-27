@@ -51,6 +51,18 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   }
 });
 
+const clearCart = asyncHandler(async (req, res) => {
+  try {
+    await Cart.deleteMany({ userId: req.user._id });
+    console.log('Cart cleared for the current user');
+    res.status(200).json({ message: 'Cart cleared' });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Internal server error',
+    });
+  }
+});
+
 const updateCartItems = asyncHandler(async (req, res) => {
   try {
     console.log('current user', req.user);
@@ -88,4 +100,5 @@ module.exports = {
   getAllItems,
   deleteCartItems,
   updateCartItems,
+  clearCart,
 };

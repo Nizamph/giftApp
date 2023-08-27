@@ -1,7 +1,7 @@
 .myOrderContainer {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1000px;
   padding: 20px;
+  font-size: medium;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -11,8 +11,9 @@
   width: 100%;
 }
 .tableRow {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
 }

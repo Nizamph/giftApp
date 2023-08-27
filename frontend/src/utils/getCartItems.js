@@ -19,7 +19,6 @@ const GetCartItems = () => {
       },
     });
     const data = await res.json();
-    console.log('cart items is here', data);
     dispatch(setAllCartItems(data.allCarts));
   };
 };

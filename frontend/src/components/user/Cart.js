@@ -8,12 +8,12 @@ import {
   setCartItems,
 } from '../../reduxStore/cartSlice';
 import { DELETE_CART, UPDATE_CART } from '../../utils/constants';
+import Modal from '../../UI/Modal';
 
 const Cart = ({ item }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.cartItems);
   const userToken = useSelector((store) => store.auth.userToken);
-
   const deleteHandler = async (item) => {
     try {
       dispatch(deleteItems({ productId: item.productId }));

@@ -6,6 +6,7 @@ const cartSlice = createSlice({
     cartItems: [],
     totalQuantity: 0,
     totalAmount: 0,
+    address: localStorage.getItem('address'),
   },
   reducers: {
     setCartItems: (state, action) => {
@@ -49,6 +50,13 @@ const cartSlice = createSlice({
     setAllCartItems: (state, action) => {
       state.cartItems = action.payload;
     },
+    addAddress: (state, action) => {
+      state.address = action.payload;
+      localStorage.setItem('address', action.payload);
+    },
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
   },
 });
 
@@ -59,5 +67,7 @@ export const {
   setTotalAmount,
   setAllCartItems,
   deleteItems,
+  addAddress,
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

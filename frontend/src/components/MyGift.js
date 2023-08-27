@@ -9,7 +9,7 @@ const MyGift = ({ product, addToCart }) => {
   const addToCartHandler = async (product) => {
     await addCartItems(product);
   };
-
+  
   console.log('productId from gift', product._id);
 
   GetCartItems();

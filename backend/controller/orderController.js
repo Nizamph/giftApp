@@ -26,9 +26,23 @@ const placeOrder = asyncHandler(async (req, res) => {
 const getOrdersToAdmin = asyncHandler(async (req, res) => {
   try {
     if (req.user._id) {
-      const orders = await Order.find({ userId: req.user._id });
+      const orders = await Order.find({});
       console.log('order to admin', orders);
       res.status(201).json({ orders: orders });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'internal server error',
+    });
+  }
+});
+
+const getOrderToUser = asyncHandler(async (req, res) => {
+  try {
+    if (req.user._id) {
+      const orders = await Order.find({ userId: req.user._id });
+      console.log('order to user', orders);
+      res.status(201).json({ orderToUser: orders });
     }
   } catch (err) {
     res.status(500).json({
@@ -55,4 +69,9 @@ const updateOrderStatusFromAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { placeOrder, getOrdersToAdmin, updateOrderStatusFromAdmin };
+module.exports = {
+  placeOrder,
+  getOrdersToAdmin,
+  updateOrderStatusFromAdmin,
+  getOrderToUser,
+};

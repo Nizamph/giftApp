@@ -2,17 +2,18 @@
 import React from 'react';
 import styles from './myOrder.module.css';
 
-const MyOrder = ({ order }) => {
-  const { items, totalAmount, orderStatus } = order;
+const MyOrder = ({ order, isUpdate }) => {
+  const { items, _id, totalAmount, orderStatus, totalQuantity } = order;
 
-  const totalQuantity = items.reduce(
-    (total, item) => total + (item.quantity || 0),
-    0
-  );
+  // const totalQuantity = items.reduce(
+  //   (total, item) => total + (item.quantity || 0),
+  //   0
+  // );
 
   return (
     <div className={styles.myOrderContainer}>
-      <h2>Order Details</h2>
+      <h2 style={{ color: 'white' }}>Order Details </h2>
+      <h3 style={{ color: 'white' }}>Order id #{_id} </h3>
       <div className={styles.ordersTable}>
         <div className={styles.tableRow}>
           <div className={styles.columnHeader}>Item</div>
@@ -20,11 +21,11 @@ const MyOrder = ({ order }) => {
           <div className={styles.columnHeader}>Quantity</div>
           <div className={styles.columnHeader}>Amount</div>
         </div>
-        {items.map((item, index) => (
+        {items.map((item) => (
           <div
-            key={index}
+            key={item._id}
             className={styles.tableRow}>
-            <div className={styles.columnData}>{item.item}</div>
+            <div className={styles.columnData}>{item.name}</div>
             <div className={styles.columnData}>
               <img
                 src={item.image}
@@ -43,7 +44,9 @@ const MyOrder = ({ order }) => {
         </div>
         <div className={styles.totalAmount}>Total Amount: ${totalAmount}</div>
         <div className={styles.orderStatus}>Order Status: {orderStatus}</div>
-        <button className={styles.updateButton}>Update Status</button>
+        {isUpdate && (
+          <button className={styles.updateButton}>Update Status</button>
+        )}
       </div>
     </div>
   );
