@@ -26,7 +26,7 @@ const CartList = () => {
   const dispatch = useDispatch();
   GetCartItems();
   const totalAmount = cartItems?.reduce((acc, curr) => {
-    return (acc = curr.amount * curr.quantity);
+    return (acc = acc + curr.amount * curr.quantity);
   }, 0);
   const totalQuantity = cartItems?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity);
@@ -123,7 +123,7 @@ const CartList = () => {
                   {userAddress}
                 </span>
               ) : (
-                <span>No Address Added</span>
+                <span>Address must be required for order the items</span>
               )}
             </div>
             <div className={styles.totalSection}>
