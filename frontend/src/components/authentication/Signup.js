@@ -48,7 +48,7 @@ const Signup = () => {
       }
       if (data.userType === 'User') {
         toast.success(' user registration Success');
-        navigate('/user', { replace: true });
+        navigate('/user/welcome', { replace: true });
 
         dispatch(
           setUserDetails({
@@ -59,7 +59,7 @@ const Signup = () => {
         );
       } else if (data.userType === 'Admin') {
         toast.success(' Admin registration  Success');
-        navigate('/admin', { replace: true });
+        navigate('/admin/welcome', { replace: true });
         dispatch(
           setAdminDetails({
             token: data.token,
