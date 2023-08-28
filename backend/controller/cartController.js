@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Cart = require('../models/cartModel');
 const addItems = asyncHandler(async (req, res) => {
   try {
-    const { name, productId, image, quantity, amount } = req.body;
+    const { name, productId, image, occasion, quantity, amount } = req.body;
     console.log('request body', req.body);
     if (!name || !image || !amount || !productId) {
       res.status(400);
@@ -14,6 +14,7 @@ const addItems = asyncHandler(async (req, res) => {
       name: name,
       productId: productId,
       image: image,
+      occasion: occasion,
       quantity: quantity,
       amount: amount,
     });
@@ -66,11 +67,20 @@ const clearCart = asyncHandler(async (req, res) => {
 const updateCartItems = asyncHandler(async (req, res) => {
   try {
     console.log('current user', req.user);
-    const { id, productId, name, image, quantity, amount } = req.body;
-    if (!id || !name || !productId || !image || !quantity || !amount) {
+    const { id, productId, name, image, occasion, quantity, amount } = req.body;
+    if (
+      !id ||
+      !name ||
+      !productId ||
+      !image ||
+      !quantity ||
+      !amount ||
+      !occasion
+    ) {
       res.status(400);
       throw new Error('Please provide sufficient data to update');
     }
+    console.log('id from update cart', id);
     console.log('user from update', req.user);
     const updatedCart = await Cart.findOneAndUpdate(
       { _id: id },
@@ -78,6 +88,7 @@ const updateCartItems = asyncHandler(async (req, res) => {
         name: name,
         productId: productId,
         image: image,
+        occasion: occasion,
         quantity: quantity,
         amount: amount,
       },

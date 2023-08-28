@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 const getUserToken = localStorage.getItem('userToken');
 const getAdminToken = localStorage.getItem('adminToken');
+console.log('usertoken from redux', getUserToken);
 const authSlice = createSlice({
   name: 'authentication',
   initialState: {
     userToken: getUserToken,
-    isUserToken: false,
+    isUserToken: !!getUserToken,
     userName: '',
     userRole: 'User',
     adminToken: getAdminToken,
-    isAdminToken: false,
+    isAdminToken: !!getAdminToken,
     adminName: '',
     adminRole: 'Admin',
   },

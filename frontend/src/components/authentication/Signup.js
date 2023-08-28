@@ -7,6 +7,9 @@ import { REGISTER } from '../../utils/constants';
 import Spinner from '../../UI/Spinner';
 import { useDispatch } from 'react-redux';
 import { setAdminDetails, setUserDetails } from '../../reduxStore/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,11 +43,13 @@ const Signup = () => {
       const data = await res.json();
       setIsLoading(false);
       console.log('data from the backend', data);
-      if (data?.errorMessage) {
-        alert(data?.errorMessage);
+      if (data.errorMessage) {
+        toast.error(data.errorMessage);
       }
       if (data.userType === 'User') {
+        toast.success(' user registration Success');
         navigate('/user', { replace: true });
+
         dispatch(
           setUserDetails({
             token: data.token,
@@ -53,6 +58,7 @@ const Signup = () => {
           })
         );
       } else if (data.userType === 'Admin') {
+        toast.success(' Admin registration  Success');
         navigate('/admin', { replace: true });
         dispatch(
           setAdminDetails({
@@ -64,10 +70,10 @@ const Signup = () => {
       }
     } catch (err) {
       console.log('error', err);
-      if (err.message) {
-        alert(err.message);
+      if (err.errorMessage) {
+        toast.error(err.errorMessage);
       } else {
-        alert('something went wrong');
+        toast.error('Something went wrong');
       }
       setIsLoading(false);
     }

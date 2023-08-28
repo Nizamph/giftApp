@@ -6,8 +6,8 @@ import styles from './Admin.module.css';
 const Admin = () => {
   const [adminSidebarContent] = useState(ADMIN_SIDEBAR_CONTENT);
   return (
-    <div>
-      <SidebarList sidebarContent={adminSidebarContent} />
+    <div style={{ width: '100%', height: '100vh' }}>
+      <SidebarList sidebarContent={ADMIN_SIDEBAR_CONTENT} />
       <Outlet />
     </div>
   );

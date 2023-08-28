@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const useGetOrders = (orderApi, token) => {
+const GetOrders = (orderApi, token) => {
   const [orderData, setOrderData] = useState({});
   useEffect(() => {
     getOrders();
@@ -21,4 +21,4 @@ const useGetOrders = (orderApi, token) => {
   return orderData;
 };
 
-export default useGetOrders;
+export default GetOrders;

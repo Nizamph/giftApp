@@ -8,6 +8,7 @@ const productSchema = new Schema({
     default:
       'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
   },
+  occasion: { type: String, required: true },
   price: { type: Number, required: true },
   deliveredIn: { type: Number, default: 7, required: true },
   inStock: { type: Number, required: true },

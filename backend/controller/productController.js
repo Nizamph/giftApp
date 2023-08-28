@@ -3,8 +3,8 @@ const asyncHandler = require('express-async-handler');
 
 const addProducts = asyncHandler(async (req, res) => {
   try {
-    const { name, image, price, deliveredIn, inStock } = req.body;
-    if (!name || !image || !price || !deliveredIn) {
+    const { name, image, occasion, price, deliveredIn, inStock } = req.body;
+    if (!name || !image || !price || !deliveredIn || !occasion) {
       res.status(400).json({
         message: 'please provide sufficient information for adding products',
       });
@@ -12,6 +12,7 @@ const addProducts = asyncHandler(async (req, res) => {
     const addedProduct = new Product({
       name: name,
       image: image,
+      occasion: occasion,
       price: price,
       deliveredIn: deliveredIn,
       inStock: inStock,

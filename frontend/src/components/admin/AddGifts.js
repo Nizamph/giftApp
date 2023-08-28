@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Button from '../../UI/Button';
 import { ADD_PRODUCT } from '../../utils/constants';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 const AddGifts = () => {
   // (e) => setImage(e.target.files[0])
   const token = useSelector((store) => store.auth.adminToken);
@@ -11,6 +12,7 @@ const AddGifts = () => {
   const [inputValues, setInputValues] = useState({
     productName: '',
     productImg: '',
+    occasion: '',
     productPrice: 0,
     deliveredIn: 0,
     inStock: 0,
@@ -25,6 +27,7 @@ const AddGifts = () => {
   const product = {
     name: inputValues.productName,
     image: inputValues.productImg,
+    occasion: inputValues.occasion,
     price: inputValues.productPrice,
     deliveredIn: inputValues.deliveredIn,
     inStock: inputValues.inStock,
@@ -45,10 +48,19 @@ const AddGifts = () => {
       const data = await res.json();
       console.log('data after addProduct', data);
       if (data?.addedProduct) {
-        alert(`${data?.addedProduct?.name} is added as product`);
+        toast.success(`${data?.addedProduct?.name} is added as product`);
       }
+
+      setInputValues({
+        productName: '',
+        productImg: '',
+        occasion: '',
+        productPrice: 0,
+        deliveredIn: 0,
+        inStock: 0,
+      });
     } catch (err) {
-      alert('something went wrong');
+      toast.error('something went wrong');
     }
   };
   console.log('input values', inputValues);
@@ -86,6 +98,18 @@ const AddGifts = () => {
               value={inputValues.productImg}
               onChange={onChangeHandler}
               placeholder='enter image URL'
+              required
+            />
+          </div>
+          <div className={styles.formField}>
+            <label htmlFor='image'>Occasion</label>
+            <input
+              style={{ color: 'black' }}
+              type='text'
+              name='occasion'
+              value={inputValues.occasion}
+              onChange={onChangeHandler}
+              placeholder='enter occation'
               required
             />
           </div>

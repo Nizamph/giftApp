@@ -5,14 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import GetCartItems from '../utils/getCartItems';
 import useAddToCart from '../utils/useAddToCart';
 const MyGift = ({ product, addToCart }) => {
+  GetCartItems();
   const addCartItems = useAddToCart();
   const addToCartHandler = async (product) => {
     await addCartItems(product);
   };
-  
-  console.log('productId from gift', product._id);
-
-  GetCartItems();
 
   return (
     <>
@@ -27,6 +24,7 @@ const MyGift = ({ product, addToCart }) => {
           />
           <div className={styles.productInfo}>
             <div className={styles.productName}>{product.name}</div>
+            <div>Occasion: {product.occasion}</div>
             <div>Delivered In: {product.deliveredIn} days</div>
             <div>In Stock: {product.inStock}</div>
             <div>Price: {product.price}</div>

@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux';
 import { setAdminDetails, setUserDetails } from '../../reduxStore/authSlice';
 import Button from '../../UI/Button';
 import Spinner from '../../UI/Spinner';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +40,11 @@ const Login = () => {
       const data = await res.json();
       setIsLoading(false);
       console.log('data from the backend in login', data);
+      if (data?.errorMessage) {
+        toast.error(data.errorMessage);
+      }
       if (data.userType === 'User') {
+        toast.success('user login successfull');
         navigate('/user', { replace: true });
         dispatch(
           setUserDetails({
@@ -47,6 +54,7 @@ const Login = () => {
           })
         );
       } else if (data.userType === 'Admin') {
+        toast.success('admin login successfull');
         navigate('/admin', { replace: true });
         dispatch(
           setAdminDetails({
@@ -64,60 +72,61 @@ const Login = () => {
         })
       );
     } catch (err) {
-      console.log('fucking error', err);
-      if (err?.message) {
-        alert(err.message);
+      if (err) {
+        toast.error(err.errorMessage);
       } else {
-        alert('something went wrong');
+        toast.error('something went wrong');
       }
       setIsLoading(false);
     }
   };
   return (
-    <div className={styles.loginPage}>
-      <div className={styles.loginContainer}>
-        <h2>Login</h2>
-        <form onSubmit={onSubmitHandler}>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            name='email'
-            id='email'
-            onChange={onChangeHandler}
-            className={styles.inputField}
-            placeholder='Enter your email'
-            required
-          />
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            onChange={onChangeHandler}
-            className={styles.inputField}
-            placeholder='Enter your password'
-            required
-          />
+    <>
+      <div className={styles.loginPage}>
+        <div className={styles.loginContainer}>
+          <h2>Login</h2>
+          <form onSubmit={onSubmitHandler}>
+            <label htmlFor='email'>Email</label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              onChange={onChangeHandler}
+              className={styles.inputField}
+              placeholder='Enter your email'
+              required
+            />
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              name='password'
+              id='password'
+              onChange={onChangeHandler}
+              className={styles.inputField}
+              placeholder='Enter your password'
+              required
+            />
 
-          <label htmlFor='role'>Role</label>
-          <select
-            id='role'
-            name='role'
-            required
-            onChange={onChangeHandler}
-            className={styles.selectField}>
-            <option value='User'>User</option>
-            <option value='Admin'>Admin</option>
-          </select>
+            <label htmlFor='role'>Role</label>
+            <select
+              id='role'
+              name='role'
+              required
+              onChange={onChangeHandler}
+              className={styles.selectField}>
+              <option value='User'>User</option>
+              <option value='Admin'>Admin</option>
+            </select>
 
-          {!isLoading && <Button type='submit'>Login</Button>}
-          {isLoading && <Spinner />}
-        </form>
-        <div className={styles.signupLink}>
-          <Link to='/signup'>Not a user? Sign up</Link>
+            {!isLoading && <Button type='submit'>Login</Button>}
+            {isLoading && <Spinner />}
+          </form>
+          <div className={styles.signupLink}>
+            <Link to='/signup'>Not a user? Sign up</Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

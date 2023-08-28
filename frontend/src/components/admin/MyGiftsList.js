@@ -4,32 +4,6 @@ import styles from './myGifts.module.css';
 import MyGift from '../MyGift';
 import { GET_MY_GIFTS } from '../../utils/constants';
 import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
-// const productData = [
-//   {
-//     _id: '64e8e5d9b83d3a51b50cee4b',
-//     name: 'football',
-//     image:
-//       'https://media.istockphoto.com/id/610241662/photo/soccer-ball-isolated-on-the-white-background.jpg?s=1024x1024&w=is&k=20&c=AVfss_DhdNJ3RXx5RmxsVilvQfCsY7_0JHmR-P4Bu0I=',
-//     deliveredIn: 8,
-//     inStock: 10,
-//   },
-//   {
-//     _id: '64e8e6689c2badf2a77ce375',
-//     name: 'diamond necklace',
-//     image:
-//       'https://media.istockphoto.com/id/610241662/photo/soccer-ball-isolated-on-the-white-background.jpg?s=1024x1024&w=is&k=20&c=AVfss_DhdNJ3RXx5RmxsVilvQfCsY7_0JHmR-P4Bu0I=',
-//     deliveredIn: 10,
-//     inStock: 2,
-//   },
-//   {
-//     _id: '64e8e6a19c2badf2a77ce378',
-//     name: 'camera',
-//     image:
-//       'https://media.istockphoto.com/id/610241662/photo/soccer-ball-isolated-on-the-white-background.jpg?s=1024x1024&w=is&k=20&c=AVfss_DhdNJ3RXx5RmxsVilvQfCsY7_0JHmR-P4Bu0I=',
-//     deliveredIn: 23,
-//     inStock: 1,
-//   },
-// ];
 
 const MyGiftsList = () => {
   const token = useSelector((store) => store.auth.adminToken);

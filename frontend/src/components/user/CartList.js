@@ -16,6 +16,7 @@ import {
 } from '../../reduxStore/cartSlice';
 import GetCartItems from '../../utils/getCartItems';
 import Modal from '../../UI/Modal';
+import { toast } from 'react-toastify';
 
 const CartList = () => {
   const cartItems = useSelector((store) => store.cart.cartItems);
@@ -48,6 +49,9 @@ const CartList = () => {
 
     const data = await res.json();
     console.log('data after orderplaced', data);
+    if (data?.placedOrder._id) {
+      toast.success('Order is placed successfully');
+    }
     if (data) {
       dispatch(clearCart());
       localStorage.clear('address');
@@ -61,6 +65,9 @@ const CartList = () => {
       });
       const data = await res.json();
       console.log('clearedCart meassage from backend', data);
+      if (data?.message) {
+        toast.success('cart is cleared');
+      }
     }
   };
   const sumbitAddressHandler = () => {
@@ -69,7 +76,7 @@ const CartList = () => {
 
   return (
     <>
-      {cartItems.length > 0 ? (
+      {cartItems?.length > 0 ? (
         <div className={styles.cartContainer}>
           <h2>Your Cart</h2>
           <div className={styles.cartTable}>
@@ -94,6 +101,10 @@ const CartList = () => {
                 setValue={setAddress}
                 value={address}
                 submitData={sumbitAddressHandler}
+                inputType={'text'}
+                openButtonName={'Address'}
+                contentTitle={'Your is required'}
+                contentDescription={'Enter your current address for delivery'}
               />
             </div>
             <div className={styles.totalSection}>

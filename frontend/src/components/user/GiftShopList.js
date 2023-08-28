@@ -7,11 +7,13 @@ import {
 } from '../../utils/constants';
 import styles from '../admin/myGifts.module.css';
 import Button from '../../UI/Button';
+import { toast } from 'react-toastify';
 
 const GiftShopList = () => {
   const token = useSelector((store) => store.auth.userToken);
   const [allGifts, setAllGifts] = useState([]);
   const [filteredSearch, setFilteredSearch] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   useEffect(() => {
     fetchAllGifts();
   }, []);
@@ -30,13 +32,13 @@ const GiftShopList = () => {
       setFilteredSearch(data.allProducts);
     } catch (err) {
       console.log(err);
-      alert('something went wrong');
+      toast.error('something went wrong');
     }
   };
 
   const onSearchHandler = (e) => {
     const filteredData = allGifts?.filter((itm) => {
-      return itm.name.toUpperCase().includes(e.target.value.toUpperCase());
+      return itm.name.toUpperCase().includes(searchInput.toUpperCase());
     });
     setFilteredSearch(filteredData);
   };
@@ -47,14 +49,15 @@ const GiftShopList = () => {
       <div className={styles.searchSection}>
         <input
           type='text'
+          value={searchInput}
           placeholder='search something'
-          onChange={onSearchHandler}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
-        <Button>search</Button>
+        <Button onClick={onSearchHandler}>search</Button>
       </div>
       <div className={styles.productListPage}>
         <div className={styles.shoppingContainer}>
-          <h2>Products</h2>
+          <h2 style={{ color: 'white' }}>Products</h2>
           <div className={styles.productList}>
             {filteredSearch?.map((product) => (
               <MyGift

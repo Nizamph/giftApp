@@ -6,14 +6,14 @@ const register = asyncHandler(async (req, res) => {
   const { name, email, password, pic, userType } = req.body;
   console.log('request body', req.body);
   if (!name || !email || !password || !userType) {
-    res.status(400);
+    res.status(400).json({ errorMessage: 'Complete form and submit' });
     throw new Error('Complete the form and submit');
   }
   if (userType === 'Admin') {
     const adminExist = await Admin.findOne({ email });
     if (adminExist) {
-      res.status(400).json({ errorMessage: 'user is already exist' });
-      throw new Error('User is already exist');
+      res.status(400).json({ errorMessage: 'admin is already exist' });
+      throw new Error('admin is already exist');
     }
     const adminData = await Admin.create({
       name: name,
@@ -30,7 +30,7 @@ const register = asyncHandler(async (req, res) => {
         token: generateToken(adminData._id),
       });
     } else {
-      res.status(400);
+      res.status(400).json({ errorMessage: 'Admin registration failed' });
       throw new Error('Admin registration failed');
     }
   } else if (userType === 'User') {
@@ -59,7 +59,7 @@ const register = asyncHandler(async (req, res) => {
         token: generateToken(usersData._id),
       });
     } else {
-      res.status(400);
+      res.status(400).json({ errorMessage: 'user registration failed' });
       throw new Error('User registration failed');
     }
   }
@@ -70,42 +70,53 @@ const auth = asyncHandler(async (req, res) => {
     const { email, password, userType } = req.body;
     if (!email || !password || !userType) {
       res.status(400);
-      throw new Error('please complete the form to login');
+      throw new Error('Please complete the form to login');
     }
-
     if (userType === 'Admin') {
       const adminExist = await Admin.findOne({ email });
-      if (adminExist && (await adminExist.matchPassword(password))) {
-        res.json({
-          id: adminExist._id,
-          name: adminExist.name,
-          email: adminExist.email,
-          userType: adminExist.userType,
-          token: generateToken(adminExist._id),
-        });
+      if (adminExist) {
+        if (await adminExist.matchPassword(password)) {
+          res.json({
+            id: adminExist._id,
+            name: adminExist.name,
+            email: adminExist.email,
+            userType: adminExist.userType,
+            token: generateToken(adminExist._id),
+          });
+        } else {
+          res.status(401).json({
+            errorMessage: 'Incorrect password for admin',
+          });
+        }
       } else {
-        res.status(400);
-        throw new Error('heyy admin you are not found please register first');
+        res.status(400).json({
+          errorMessage: 'Admin not found, please register first',
+        });
       }
     } else if (userType === 'User') {
       const userExist = await User.findOne({ email });
-      console.log('userData after login', userExist);
-      if (userExist && (await userExist.matchPassword(password))) {
-        console.log(' if working');
-        res.json({
-          id: userExist._id,
-          name: userExist.name,
-          email: userExist.email,
-          userType: userExist.userType,
-          token: generateToken(userExist._id),
-        });
+      if (userExist) {
+        if (await userExist.matchPassword(password)) {
+          res.json({
+            id: userExist._id,
+            name: userExist.name,
+            email: userExist.email,
+            userType: userExist.userType,
+            token: generateToken(userExist._id),
+          });
+        } else {
+          res.status(401).json({
+            errorMessage: 'Incorrect password for user',
+          });
+        }
       } else {
-        res.status(400);
-        throw new Error('heyy user you are not found please register first');
+        res.status(400).json({
+          errorMessage: 'User not found, please register first',
+        });
       }
     }
   } catch (err) {
-    res.status(500).json({ message: 'internal server error (login)' });
+    res.status(500).json({ errorMessage: 'something went wrong (login)' });
   }
 });
 

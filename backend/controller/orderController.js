@@ -28,7 +28,7 @@ const getOrdersToAdmin = asyncHandler(async (req, res) => {
     if (req.user._id) {
       const orders = await Order.find({});
       console.log('order to admin', orders);
-      res.status(201).json({ orders: orders });
+      res.status(201).json({ ordersToAdmin: orders });
     }
   } catch (err) {
     res.status(500).json({

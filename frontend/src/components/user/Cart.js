@@ -52,6 +52,7 @@ const Cart = ({ item }) => {
         name: item.name,
         productId: item.productId,
         image: item.image,
+        occasion: item.occasion,
         quantity: currentQuantity + 1,
         amount: item.amount,
       };
@@ -65,6 +66,7 @@ const Cart = ({ item }) => {
         name: item.name,
         productId: item.productId,
         image: item.image,
+        occasion: item.occasion,
         quantity: currentQuantity - 1,
         amount: item.amount,
       };
@@ -100,7 +102,7 @@ const Cart = ({ item }) => {
         <button onClick={() => quantityHandler(item, 'increase')}>+</button>
       </div>
       <div>{item.amount}</div>
-      <div>Birthday</div>
+      <div>{item.occasion}</div>
       <div>
         <button onClick={() => deleteHandler(item)}>Delete</button>
       </div>
