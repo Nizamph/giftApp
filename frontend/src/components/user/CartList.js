@@ -56,7 +56,7 @@ const CartList = () => {
       if (data?.placedOrder._id) {
         toast.success('Order is placed successfully');
       } else if (data?.errorMessage) {
-        toast.error(data.errorMessage);
+        toast.error('address is required');
       }
       if (data?.placedOrder._id) {
         dispatch(clearCart());
@@ -76,7 +76,7 @@ const CartList = () => {
         }
       }
     } catch (err) {
-      toast.error('something went wrong');
+      toast.error('You should add your address');
     }
   };
   const sumbitAddressHandler = () => {
