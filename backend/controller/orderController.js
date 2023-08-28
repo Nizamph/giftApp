@@ -2,10 +2,14 @@ const asyncHandler = require('express-async-handler');
 const Order = require('../models/orderModel');
 const placeOrder = asyncHandler(async (req, res) => {
   try {
-    const { items, totalQuantity, totalAmount } = req.body;
+    const { items, totalQuantity, totalAmount, userAddress } = req.body;
     console.log('request body', req.body);
-    if (!items || !totalQuantity || !totalAmount) {
-      res.status(400);
+    if (!items || !totalQuantity || !totalAmount || !userAddress) {
+      res
+        .status(400)
+        .res.json({
+          errorMessage: 'please add all the required data for order',
+        });
       throw new Error('Please add items');
     }
     console.log('user from order', req.user);
@@ -15,12 +19,13 @@ const placeOrder = asyncHandler(async (req, res) => {
       items: items,
       totalQuantity: totalQuantity,
       totalAmount: totalAmount,
+      userAddress: userAddress,
     });
 
     const savedOrder = await orderData.save();
     res.status(201).json({ placedOrder: savedOrder });
   } catch (error) {
-    res.status(500).json({ message: 'internal server error' });
+    res.status(500).json({ errorMessage: 'something went wrong' });
   }
 });
 const getOrdersToAdmin = asyncHandler(async (req, res) => {

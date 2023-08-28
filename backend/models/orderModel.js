@@ -14,6 +14,7 @@ const ordersSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  userAddress: { type: String, default: 'ordered', required: true },
 });
 const Order = mongoose.model('Order', ordersSchema);
 module.exports = Order;

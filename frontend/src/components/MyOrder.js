@@ -9,8 +9,15 @@ import { setFetchValue } from '../reduxStore/uiSlice';
 
 const MyOrder = ({ order, isUpdate }) => {
   const dispatch = useDispatch();
-  const { items, _id, orderFrom, totalAmount, orderStatus, totalQuantity } =
-    order;
+  const {
+    items,
+    _id,
+    userAddress,
+    orderFrom,
+    totalAmount,
+    orderStatus,
+    totalQuantity,
+  } = order;
 
   console.log('id from the order', _id);
   const adminToken = useSelector((store) => store.auth.adminToken);
@@ -73,6 +80,7 @@ const MyOrder = ({ order, isUpdate }) => {
           Total Quantity: {totalQuantity}
         </div>
         <div className={styles.totalAmount}>Total Amount: ${totalAmount}</div>
+        <div className={styles.orderStatus}>user Address: {userAddress}</div>
         <div
           onClick={() => console.log('div id', _id)}
           className={styles.orderStatus}>

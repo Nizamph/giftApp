@@ -37,39 +37,46 @@ const CartList = () => {
       items: [...cartItems],
       totalAmount: totalAmount,
       totalQuantity: totalQuantity,
+      userAddress: userAddress,
     };
   }
   const onOrderhandler = async () => {
-    const res = await fetch(PLACE_ORDER, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify(orderNeedToPlace),
-    });
-
-    const data = await res.json();
-    console.log('data after orderplaced', data);
-    if (data?.placedOrder._id) {
-      toast.success('Order is placed successfully');
-    }
-    if (data) {
-      dispatch(clearCart());
-      localStorage.clear('address');
-      const res = await fetch(CLEAR_CART, {
-        method: 'DELETE',
+    try {
+      const res = await fetch(PLACE_ORDER, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify(orderNeedToPlace),
       });
+
       const data = await res.json();
-      console.log('clearedCart meassage from backend', data);
-      if (data?.message) {
-        toast.success('cart is cleared');
+      console.log('data after orderplaced', data);
+      if (data?.placedOrder._id) {
+        toast.success('Order is placed successfully');
+      } else if (data?.errorMessage) {
+        toast.error(data.errorMessage);
       }
+      if (data?.placedOrder._id) {
+        dispatch(clearCart());
+        localStorage.clear('address');
+        const res = await fetch(CLEAR_CART, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify(orderNeedToPlace),
+        });
+        const data = await res.json();
+        console.log('clearedCart meassage from backend', data);
+        if (data?.message) {
+          toast.success('cart is cleared');
+        }
+      }
+    } catch (err) {
+      toast.error('something went wrong');
     }
   };
   const sumbitAddressHandler = () => {
