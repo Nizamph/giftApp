@@ -16,6 +16,7 @@ import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Welcome from './components/Welcome';
 function App() {
   const isUserToken = useSelector((store) => store.auth.isUserToken);
   const isAdminToken = useSelector((store) => store.auth.isAdminToken);
@@ -29,6 +30,10 @@ function App() {
           <Route
             path='admin'
             element={isAdminToken ? <Admin /> : <Navigate to='/login' />}>
+            <Route
+              path='welcome'
+              element={<Welcome />}
+            />
             <Route
               path='addgifts'
               element={isAdminToken ? <AddGifts /> : <Navigate to='/login' />}
@@ -62,6 +67,10 @@ function App() {
               }
             />
             <Route
+              path='welcome'
+              element={<Welcome />}
+            />
+            <Route
               path='cart'
               element={isUserToken ? <CartList /> : <Navigate to='/login' />}
             />
@@ -93,9 +102,9 @@ function App() {
           path='*'
           element={
             isAdminToken ? (
-              <Admin />
+              <Navigate to='/admin/welcome' />
             ) : isUserToken ? (
-              <User />
+              <Navigate to='/user/welcome' />
             ) : (
               <Navigate to='/login' />
             )

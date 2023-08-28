@@ -31,12 +31,14 @@ const CartList = () => {
   const totalQuantity = cartItems?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity);
   }, 0);
-
-  const orderNeedToPlace = {
-    items: [...cartItems],
-    totalAmount: totalAmount,
-    totalQuantity: totalQuantity,
-  };
+  let orderNeedToPlace = {};
+  if (cartItems) {
+    orderNeedToPlace = {
+      items: [...cartItems],
+      totalAmount: totalAmount,
+      totalQuantity: totalQuantity,
+    };
+  }
   const onOrderhandler = async () => {
     const res = await fetch(PLACE_ORDER, {
       method: 'POST',
@@ -102,7 +104,7 @@ const CartList = () => {
                 value={address}
                 submitData={sumbitAddressHandler}
                 inputType={'text'}
-                openButtonName={'Address'}
+                openButtonName={'Add Address'}
                 contentTitle={'Your is required'}
                 contentDescription={'Enter your current address for delivery'}
               />

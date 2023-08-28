@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const Welcome = () => {
   const isAdminToken = useSelector((store) => store.auth.isAdminToken);
-  // const isUserToken = useSelector((store) => store.auth.isUserToken);
+  const isUserToken = useSelector((store) => store.auth.isUserToken);
   return (
     <div
       style={{
@@ -12,8 +12,16 @@ const Welcome = () => {
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        fontSize: '60px',
       }}>
-      Welcome{isAdminToken ? <span>Admin</span> : <span>User</span>}
+      Welcome{' '}
+      {isAdminToken ? (
+        <span style={{ marginLeft: '10px' }}> Admin</span>
+      ) : isUserToken ? (
+        <span style={{ marginLeft: '10px' }}>User</span>
+      ) : (
+        ''
+      )}
     </div>
   );
 };

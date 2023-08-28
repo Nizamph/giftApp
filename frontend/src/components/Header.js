@@ -14,7 +14,7 @@ const Header = () => {
     <div className={styles.headerContainer}>
       <div>
         <img src={giftIcon} />
-        <h3>Gift for you</h3>
+        <h3>Gift Wave</h3>
       </div>
       <div>
         {!isUserToken && !isAdminToken && (

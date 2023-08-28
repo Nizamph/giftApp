@@ -45,7 +45,7 @@ const Login = () => {
       }
       if (data.userType === 'User') {
         toast.success('user login successfull');
-        navigate('/user', { replace: true });
+        navigate('/user/welcome', { replace: true });
         dispatch(
           setUserDetails({
             token: data.token,
@@ -55,7 +55,7 @@ const Login = () => {
         );
       } else if (data.userType === 'Admin') {
         toast.success('admin login successfull');
-        navigate('/admin', { replace: true });
+        navigate('/admin/welcome', { replace: true });
         dispatch(
           setAdminDetails({
             token: data.token,

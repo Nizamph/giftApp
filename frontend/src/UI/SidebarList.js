@@ -2,14 +2,20 @@ import React from 'react';
 import './sidebar.css';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setTokenStatus } from '../reduxStore/authSlice';
+import { toast } from 'react-toastify';
 const SidebarList = ({ sidebarContent }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log('sidebar contents', sidebarContent);
   const logoutHandler = () => {
     localStorage.clear('userToken');
     localStorage.clear('adminToken');
     localStorage.clear('address');
     navigate('/login', { replace: true });
+    dispatch(setTokenStatus());
+    toast.success('logged out successfully');
   };
   return (
     <>

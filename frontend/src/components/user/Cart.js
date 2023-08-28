@@ -9,6 +9,7 @@ import {
 } from '../../reduxStore/cartSlice';
 import { DELETE_CART, UPDATE_CART } from '../../utils/constants';
 import Modal from '../../UI/Modal';
+import { toast } from 'react-toastify';
 
 const Cart = ({ item }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ const Cart = ({ item }) => {
       });
       const deletedData = await res.json();
       console.log('deleted Data is here', deletedData);
+      if (deletedData) {
+        toast.success('successfully deleted');
+      }
     } catch (err) {
       console.log(err);
       alert('something went wrong');

@@ -27,9 +27,14 @@ const authSlice = createSlice({
       state.adminName = action.payload.adminName;
       localStorage.setItem('adminToken', action.payload.token);
     },
+    setTokenStatus: (state, action) => {
+      state.isAdminToken = false;
+      state.isUserToken = false;
+    },
   },
 });
 
-export const { setUserDetails, setAdminDetails } = authSlice.actions;
+export const { setUserDetails, setAdminDetails, setTokenStatus } =
+  authSlice.actions;
 
 export default authSlice.reducer;
